@@ -1,15 +1,16 @@
 import React from 'react';
 import MainGrid from "../src/components/MainGrid";
 import Box from "../src/components/Box";
+
 import {
   AlurakutMenu,
   AlurakutProfileSidebarMenuDefault,
   OrkutNostalgicIconSet,
 } from "../src/lib/AlurakutCommons";
+
 import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
 
 function ProfileSidebar(props) {
-  console.log(props);
   return (
     <Box as="aside">
       <img
@@ -28,13 +29,36 @@ function ProfileSidebar(props) {
   );
 }
 
+function ProfileRelationsBox(props){
+  return(
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {props.title} ({props.items.length})
+      </h2>
+      {/* <ul>
+        {seguidores.map((itemAtual) => {
+          return (
+            <li key={itemAtual}>
+              <a href={`https://github.com/${itemAtual}.png`} key={itemAtual}>
+                <img src={itemAtual} />
+                <span>{itemAtual}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul> */}
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const githubUser = "lucasviinic";
   const [comunidades, setComunidades] = React.useState([{
     id: new Date().toISOString(),
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    title: 'Durmo só 5h e tô bem',
+    image: 'https://i.pinimg.com/originals/f0/65/fc/f065fc1340c61a48d0526f8f5430f368.jpg'
   }])
+
   const pessoasFavoritas = [
     "juunegreiros",
     "omariosouto",
@@ -44,17 +68,21 @@ export default function Home() {
     "peas",
   ];
 
+  const [seguidores, setSeguidores] = React.useState([])
+  // 0 - Pegar o array de dados do GitHub
+  React.useEffect(() => {
+    fetch(`https://api.github.com/users/${githubUser}/followers`)
+      .then((respostadoDoServidor) => {
+        return respostadoDoServidor.json()
+      })
+      .then((respostaCompleta) => {
+        setSeguidores(respostaCompleta)
+      })
+  }, [])
+
   return (
     <>
-      {/* 
-                                  Desafios
-        1. Alterar a imagem de <AlurakutMenu /> para a do usuário atual.
-        2. Colocar imagem padrão, caso o usuário não passe URL ao criar comunidade.
-        3. Não deixar a exibição da lista passar de 6.
-        4. Link para uma comunidade.
-        5. Mudar o plano de fundo para uma imagem de algo que me represente.
-      */}
-      <AlurakutMenu />
+      <AlurakutMenu githubUser={githubUser}/>
       <MainGrid>
         <div className="profileArea" style={{ gridArea: "profileArea" }}>
           <ProfileSidebar githubUser={githubUser} />
@@ -101,10 +129,8 @@ export default function Home() {
             </form>
           </Box>
         </div>
-        <div
-          className="profileRelationsArea"
-          style={{ gridArea: "profileRelationsArea" }}
-        >
+        <div className="profileRelationsArea" style={{ gridArea: "profileRelationsArea" }}>
+          <ProfileRelationsBox title="Seguidores" items={seguidores}/>
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades ({comunidades.length})
