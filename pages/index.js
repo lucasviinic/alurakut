@@ -35,18 +35,18 @@ function ProfileRelationsBox(props){
       <h2 className="smallTitle">
         {props.title} ({props.items.length})
       </h2>
-      {/* <ul>
-        {seguidores.map((itemAtual) => {
+      <ul>
+        {props.items.map((itemAtual) => {
           return (
-            <li key={itemAtual}>
-              <a href={`https://github.com/${itemAtual}.png`} key={itemAtual}>
-                <img src={itemAtual} />
-                <span>{itemAtual}</span>
+            <li key={itemAtual.id}>
+              <a href={`https://github.com/${itemAtual.login}`} key={itemAtual.id}>
+                <img src={`https://github.com/${itemAtual.login}.png`} />
+                <span>{itemAtual.login}</span>
               </a>
             </li>
           );
         })}
-      </ul> */}
+      </ul>
     </ProfileRelationsBoxWrapper>
   )
 }
@@ -55,7 +55,7 @@ export default function Home() {
   const githubUser = "lucasviinic";
   const [comunidades, setComunidades] = React.useState([{
     id: new Date().toISOString(),
-    title: 'Durmo só 5h e tô bem',
+    title: 'Durmo 5h e tô bem',
     image: 'https://i.pinimg.com/originals/f0/65/fc/f065fc1340c61a48d0526f8f5430f368.jpg'
   }])
 
@@ -69,7 +69,6 @@ export default function Home() {
   ];
 
   const [seguidores, setSeguidores] = React.useState([])
-  // 0 - Pegar o array de dados do GitHub
   React.useEffect(() => {
     fetch(`https://api.github.com/users/${githubUser}/followers`)
       .then((respostadoDoServidor) => {
