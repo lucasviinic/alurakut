@@ -53,11 +53,7 @@ function ProfileRelationsBox(props){
 
 export default function Home() {
   const githubUser = "lucasviinic";
-  const [comunidades, setComunidades] = React.useState([{
-    id: new Date().toISOString(),
-    title: 'Durmo 5h e tô bem',
-    image: 'https://i.pinimg.com/originals/f0/65/fc/f065fc1340c61a48d0526f8f5430f368.jpg'
-  }])
+  const [comunidades, setComunidades] = React.useState([])
 
   const pessoasFavoritas = [
     "juunegreiros",
@@ -77,6 +73,31 @@ export default function Home() {
       .then((respostaCompleta) => {
         setSeguidores(respostaCompleta)
       })
+
+      //API GraphQL
+      fetch('https://graphql.datocms.com/', {
+        method: 'POST',
+        headers: {
+          'Authorization': '894b3a40131125de453452064e0ddb',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({"query": `query {
+          allCommunities {
+            title
+            id
+            imageUrl
+            creatorSlug
+          }
+        }` })
+      })
+      .then((response) => response.json())
+      .then((fullResponse) => {
+          const comunidadesVindasDoDato = fullResponse.data.allCommunities
+          console.log(comunidadesVindasDoDato)
+          setComunidades(comunidadesVindasDoDato)
+      })
+
   }, [])
 
   return (
@@ -138,8 +159,8 @@ export default function Home() {
               {comunidades.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
-                    <a href={`/users/${itemAtual.title}`} key={itemAtual.title}>
-                      <img src={itemAtual.image} />
+                    <a href={`/communities/${itemAtual.id}`} key={itemAtual.title}>
+                      <img src={itemAtual.imageUrl} />
                       <span>{itemAtual.title}</span>
                     </a>
                   </li>
