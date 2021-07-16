@@ -123,11 +123,22 @@ export default function Home() {
                 console.log('Campo: ', dadosDoForm.get('image'))
 
                 const comunidade = {
-                  titulo: dadosDoForm.get('title'),
-                  image: dadosDoForm.get('image')
+                  title: dadosDoForm.get('title'),
+                  imageUrl: dadosDoForm.get('image'),
+                  creatorSlug: githubUser
                 }
 
-                setComunidades([...comunidades, comunidade])
+                fetch('/api/comunidades', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(comunidade)
+                }).then(async (response) => {
+                  const dados = await response.json()
+                  const comunidade = dados.registroCriado
+                  setComunidades([...comunidades, comunidade])
+                })
               }}
             >
               <div>
