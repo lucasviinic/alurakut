@@ -17,7 +17,7 @@ export default function LoginScreen() {
       }}
     >
       <div className="loginScreen">
-        <section className="logoArea">
+        <section style={{ background: "rgba(255, 255, 255, 0.6)" }} className="logoArea">
           <img src="https://alurakut.vercel.app/logo.svg" />
 
           <p>
@@ -34,11 +34,9 @@ export default function LoginScreen() {
           </p>
         </section>
 
-        <section
-          styled={{ backgroundColor: "rgba(255, 255, 255, 0.6)" }}
-          className="formArea"
-        >
+        <section className="formArea">
           <form
+            style={{ background: "rgba(255, 255, 255, 0.6)" }}
             className="box"
             onSubmit={(infosDoEvento) => {
               infosDoEvento.preventDefault();
@@ -75,7 +73,7 @@ export default function LoginScreen() {
             <button type="submit">Login</button>
           </form>
 
-          <footer className="box">
+          <footer style={{ background: "rgba(255, 255, 255, 0.6)" }} className="box">
             <p>
               Ainda não é membro? <br />
               <a href="/login">
@@ -85,7 +83,7 @@ export default function LoginScreen() {
           </footer>
         </section>
 
-        <footer className="footerArea">
+        <footer style={{background: 'rgba(255, 255, 255, 0.6)'}} className="footerArea">
           <p>
             © 2021 alura.com.br - <a href="/">Sobre o Orkut.br</a> -{" "}
             <a href="/">Centro de segurança</a> - <a href="/">Privacidade</a> -{" "}
