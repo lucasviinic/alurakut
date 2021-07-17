@@ -14,8 +14,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-    background-image: url("https://wallpapers-hub.art/wallpaper-images/782448.jpg");
-    background-size: contain;
+    background-image: url("https://ze-robot.com/dl/4k/4k-desktop-wallpaper.-1920%C3%971080.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; 
   }
 
   #__next {
