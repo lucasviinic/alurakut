@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head'
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 import MainGrid from "../src/components/MainGrid";
@@ -104,6 +105,9 @@ export default function Home(props) {
 
   return (
     <>
+      <Head>
+        <title>Welcome to Alurakut!</title>
+      </Head>
       <AlurakutMenu githubUser={githubUser}/>
       <MainGrid>
         <div className="profileArea" style={{ gridArea: "profileArea" }}>

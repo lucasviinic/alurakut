@@ -1,5 +1,6 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { AlurakutStyles } from '../src/lib/AlurakutCommons'
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { AlurakutStyles } from "../src/lib/AlurakutCommons";
+import Head from 'next/head'
 
 const GlobalStyle = createGlobalStyle`
   /* Reset CSS */
@@ -32,21 +33,24 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ${AlurakutStyles}
-`
+`;
 
 const theme = {
   colors: {
-    primary: 'red',
+    primary: "red",
   },
-}
+};
 
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <title>Alurakut - Login</title>
+      </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  )
+  );
 }
